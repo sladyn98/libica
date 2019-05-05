@@ -510,7 +510,8 @@ struct {				\
 		rc = EINVAL;
 	}
 
-	OPENSSL_cleanse(param.buff, sizeof(param.buff));
+	memset(param.buff,0,sizeof(param.buff));
+
 	return rc;
 }
 
@@ -560,7 +561,8 @@ unsigned int ecdh_hw(ica_adapter_handle_t adapter_handle,
 	memcpy(z, reply_p->raw_z_value, privlen);
 	rc = 0;
 ret:
-	OPENSSL_cleanse(buf, len);
+
+    memset(buf,0,len);
 	free(buf);
 	return rc;
 }
@@ -950,7 +952,8 @@ unsigned int ecdsa_sign_hw(ica_adapter_handle_t adapter_handle,
 	memcpy(signature, reply_p->signature, reply_p->vud_len-8);
 	rc = 0;
 ret:
-	OPENSSL_cleanse(buf, len);
+	
+	memset(buf,0,len);
 	free(buf);
 	return rc;
 }
@@ -1258,10 +1261,9 @@ struct {				\
 		       param.P256.sig_s + off,
 		       sizeof(param.P256.sig_s) - off);
 
-		OPENSSL_cleanse(param.P256.priv,
-				sizeof(param.P256.priv));
-		OPENSSL_cleanse(param.P256.rand,
-				sizeof(param.P256.rand));
+	    memset(param.P256.priv,0,sizeof(param.P256.priv));
+		memset(param.P256.rand,0,sizeof(param.P256.rand));
+
 		break;
 
 	case NID_secp384r1:
@@ -1296,10 +1298,10 @@ struct {				\
 		       param.P384.sig_s + off,
 		       sizeof(param.P384.sig_s) - off);
 
-		OPENSSL_cleanse(param.P384.priv,
-				sizeof(param.P384.priv));
-		OPENSSL_cleanse(param.P384.rand,
-				sizeof(param.P384.rand));
+		memset(param.P384.priv,0,sizeof(param.P384.priv));
+		memset(param.P384.rand,0,sizeof(param.P384.rand));
+
+
 		break;
 
 	case NID_secp521r1:
@@ -1334,10 +1336,11 @@ struct {				\
 		       param.P521.sig_s + off,
 		       sizeof(param.P521.sig_s) - off);
 
-		OPENSSL_cleanse(param.P521.priv,
-				sizeof(param.P521.priv));
-		OPENSSL_cleanse(param.P521.rand,
-				sizeof(param.P521.rand));
+		memset(param.P521.priv,0,sizeof(param.P521.priv));
+		memset(param.P521.rand,0,sizeof(param.P521.rand));
+
+
+		
 		break;
 
 	default:
@@ -1397,9 +1400,11 @@ unsigned int ecdsa_verify_hw(ica_adapter_handle_t adapter_handle,
 		goto ret;
 	}
 
+    memset(buf,0,len);
+
 	rc = 0;
 ret:
-	OPENSSL_cleanse(buf, len);
+	
 	free(buf);
 	return rc;
 }
@@ -1754,7 +1759,8 @@ unsigned int eckeygen_hw(ica_adapter_handle_t adapter_handle, ICA_EC_KEY *key)
 	memcpy(key->X, (char*)pub_p->pubkey, 2*privlen);
 	rc = 0;
 ret:
-	OPENSSL_cleanse(buf, len);
+	
+	memset(buf,0,len);
 	free(buf);
 	return rc;
 }
