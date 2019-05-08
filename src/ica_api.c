@@ -1406,11 +1406,12 @@ void ica_ec_key_free(ICA_EC_KEY *key)
 
 	if (key->X) {
 		/* free 1 block of memory for X, Y, and D */
-		OPENSSL_cleanse((void *)key->X, 3*privlen_from_nid(key->nid));
+		memset((void *)key->X,0,3*privlen_from_nid(key->nid));
 		free(key->X);
 	}
 
-	OPENSSL_cleanse((void *)key, sizeof(ICA_EC_KEY));
+	
+	memset(void *)key,0,sizeof(ICA_EC_KEY);
 	free(key);
 }
 
@@ -2742,7 +2743,7 @@ void ica_aes_gcm_kma_ctx_free(kma_ctx* ctx)
     if (!ctx)
 	return;
 
-    OPENSSL_cleanse((void *)ctx, sizeof(kma_ctx));
+	memset((void *)ctx,0,sizeof(kma_ctx))
 
     free(ctx);
 }
