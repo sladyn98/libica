@@ -78,7 +78,7 @@ static inline int s390_des_ecb_sw(unsigned int function_code, unsigned long inpu
 		DES_set_key((const DES_cblock *) keys, &key_schedule1);
 		DES_set_key((const DES_cblock *) keys+1, &key_schedule2);
 		for (; input_length; input_length -= sizeof(DES_cblock)) {
-			DES_ecb2_encrypt((const_DES_cblock *)
+			DES_ecb2_encrypt((const DES_cblock *)
 					 input_data,
 					 (DES_cblock *) output_data,
 					 &key_schedule1, &key_schedule2,
