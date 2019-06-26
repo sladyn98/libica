@@ -62,7 +62,7 @@ static inline int s390_des_ecb_sw(unsigned int function_code, unsigned long inpu
 	DES_key_schedule key_schedule3;
 	switch (function_code & S390_CRYPTO_FUNCTION_MASK) {
 	case S390_CRYPTO_DEA_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
 		for (; input_length; input_length -= sizeof(DES_cblock)) {
 			DES_ecb_encrypt((const_DES_cblock *) input_data,
 					(DES_cblock *) output_data,
@@ -75,8 +75,8 @@ static inline int s390_des_ecb_sw(unsigned int function_code, unsigned long inpu
 		break;
 
 	case S390_CRYPTO_TDEA_128_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
-		DES_set_key(keys+1,&key_schedule2);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys+1,&key_schedule2);
 		for (; input_length; input_length -= sizeof(DES_cblock)) {
 			DES_ecb2_encrypt((const_DES_cblock *)
 					 input_data,
@@ -90,9 +90,9 @@ static inline int s390_des_ecb_sw(unsigned int function_code, unsigned long inpu
 		break;
 
 	case S390_CRYPTO_TDEA_192_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
-		DES_set_key(keys+1,&key_schedule2);
-		DES_set_key(keys+2,&key_schedule3);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys+1,&key_schedule2);
+		DES_set_key((const DES_cblock *) keys+2,&key_schedule3);
 		for (; input_length; input_length -= sizeof(DES_cblock)) {
 			DES_ecb3_encrypt((const_DES_cblock *)
 					 input_data,
@@ -154,15 +154,15 @@ static inline int s390_des_cbc_sw(unsigned int function_code,
 	DES_key_schedule key_schedule3;
 	switch (function_code & S390_CRYPTO_FUNCTION_MASK) {
 	case S390_CRYPTO_DEA_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
 		DES_ncbc_encrypt(input_data, output_data, input_length,
 				 &key_schedule1, (DES_cblock *) iv,
 				 (function_code & S390_CRYPTO_DIRECTION_MASK) ?
 				 0 : 1);
 		break;
 	case S390_CRYPTO_TDEA_128_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
-		DES_set_key(keys+1,&key_schedule2);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys+1,&key_schedule2);
 		DES_ede2_cbc_encrypt(input_data, output_data, input_length,
 				     &key_schedule1, &key_schedule2,
 				     (DES_cblock *) iv,
@@ -170,9 +170,9 @@ static inline int s390_des_cbc_sw(unsigned int function_code,
 				      S390_CRYPTO_DIRECTION_MASK) ? 0 : 1);
 		break;
 	case S390_CRYPTO_TDEA_192_ENCRYPT:
-		DES_set_key(keys,&key_schedule1);
-		DES_set_key(keys+1,&key_schedule2);
-		DES_set_key(keys+2,&key_schedule3);
+		DES_set_key((const DES_cblock *) keys,&key_schedule1);
+		DES_set_key((const DES_cblock *) keys+1,&key_schedule2);
+		DES_set_key((const DES_cblock *) keys+2,&key_schedule3);
 		DES_ede3_cbc_encrypt(input_data, output_data, input_length,
 				     &key_schedule1, &key_schedule2,
 				     &key_schedule3, (DES_cblock *) iv,
