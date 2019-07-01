@@ -13,6 +13,8 @@
 
 #ifndef S390_SHA_H
 #define S390_SHA_H
+#define SHA_LONG64 unsigned long long
+#define U64(C)     C##ULL
 
 static unsigned char SHA_1_DEFAULT_IV[] = {
 	0x67, 0x45, 0x23, 0x01, 0xef, 0xcd, 0xab, 0x89, 0x98, 0xba, 0xdc, 0xfe,
