@@ -48,6 +48,25 @@ static unsigned int mod_expo_sw(int arg_length, char *arg, int exp_length,
 				char *exp, int mod_length, char *mod,
 				int *res_length, char *res, BN_CTX *ctx);
 
+BN_GENCB *BN_GENCB_new(void)
+{
+    BN_GENCB *ret;
+
+    if ((ret = OPENSSL_malloc(sizeof(*ret))) == NULL) {
+        BNerr(BN_F_BN_GENCB_NEW, ERR_R_MALLOC_FAILURE);
+        return NULL;
+    }
+
+    return ret;
+}
+
+void BN_GENCB_free(BN_GENCB *cb)
+{
+    if (cb == NULL)
+        return;
+    OPENSSL_free(cb);
+}				
+
 RSA* rsa_key_generate(unsigned int modulus_bit_length,
 		      unsigned long *public_exponent)
 {
@@ -85,7 +104,6 @@ RSA* rsa_key_generate(unsigned int modulus_bit_length,
 #endif /* OPENSSL_VERSION_NUMBER */
 
 	BN_set_word(exp, *public_exponent);
-	BN_GENCB_set_old(cb, NULL, NULL);
 
 	if (RSA_generate_key_ex(rsa, modulus_bit_length, exp, cb) == 0) {
 		RSA_free(rsa);
