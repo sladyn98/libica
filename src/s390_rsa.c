@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <openssl/crypto.h>
 #include <openssl/rsa.h>
-#include <openssl/bnerr.h>
+#include <openssl/err.h>
 
 #include <openssl/opensslconf.h>
 #ifdef OPENSSL_FIPS
@@ -54,7 +54,7 @@ BN_GENCB *BN_GENCB_new(void)
     BN_GENCB *ret;
 
     if ((ret = OPENSSL_malloc(sizeof(*ret))) == NULL) {
-        BNerr(BN_F_BN_GENCB_NEW, ERR_R_MALLOC_FAILURE);
+        OPENSSL_PUT_ERROR(RSA, ERR_MALLOC_FAILED)
         return NULL;
     }
 
