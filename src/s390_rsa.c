@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <openssl/crypto.h>
 #include <openssl/rsa.h>
+#include <openssl/bnerr.h>
 
 #include <openssl/opensslconf.h>
 #ifdef OPENSSL_FIPS
