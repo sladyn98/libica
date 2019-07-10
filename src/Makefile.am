@@ -34,7 +34,7 @@ mp.S	: mp.pl
 bin_PROGRAMS = icainfo icastats
 
 icainfo_CFLAGS = ${AM_CFLAGS} -I${srcdir}/include -I${srcdir}/../include
-icainfo_LDADD = @LIBS@ libica.la
+icainfo_LDADD = @LIBS@ libica.la -lpthread
 icainfo_SOURCES = icainfo.c include/fips.h include/s390_crypto.h \
 		  ../include/ica_api.h
 
