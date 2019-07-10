@@ -17,6 +17,7 @@
 #include <openssl/obj_mac.h>
 #include <asm/zcrypt.h>
 #include "ica_api.h"
+ #include <stdlib.h>
 
 #define MAX_ECC_PRIV_SIZE	66 /* 521 bits */
 #define MAX_ECDSA_SIG_SIZE	132

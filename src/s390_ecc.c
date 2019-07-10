@@ -20,6 +20,7 @@
 #include <openssl/ecdh.h>
 #include <openssl/ecdsa.h>
 #include <openssl/opensslconf.h>
+#include <openssl/ec_key.h>
 #ifdef OPENSSL_FIPS
 #include <openssl/fips.h>
 #endif /* OPENSSL_FIPS */
@@ -1714,7 +1715,7 @@ unsigned int eckeygen_hw(ica_adapter_handle_t adapter_handle, ICA_EC_KEY *key)
 {
 	uint8_t *buf;
 	size_t len;
-	int rc;
+	int rc=0;
 	struct ica_xcRB xcrb;
 	ECKEYGEN_REPLY *reply_p;
 	unsigned int privlen = privlen_from_nid(key->nid);
