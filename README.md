@@ -1,5 +1,12 @@
 # libica
 
+This fork is being developed as a part of the OpenMainframeProject-19 to support hardware acceleration on s390x systems.
+Maintainers of this fork:
+
+@sladyn98
+
+@nealef
+
 Linux on z Systems crypto library
 
 
